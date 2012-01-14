@@ -29,11 +29,7 @@ namespace WAPT {
         /* Initializes the repository. */
         public Engine() {
             nElement = 7;
-            url = "http://www.giovannicapuano.net/repository/";
             path = "package.xml";
-            if(!File.Exists(path))
-                if(!Utils.Download(url + path, path))
-                    throw new FileNotFoundException();
             if(FileExists(path))
                 Packages = ParseXML(path);
             else
@@ -41,13 +37,9 @@ namespace WAPT {
         }
 
         /* Initializes the repository giving its url. */
-        public Engine(string url) {
+        public Engine(string path) {
             nElement = 7;
-            this.url = url;
-            path = "package.xml";
-            if(!File.Exists(path))
-                if(!Utils.Download(url + path, path))
-                    throw new FileNotFoundException();
+            this.path = path;
             if(FileExists(path))
                 Packages = ParseXML(path);
             else

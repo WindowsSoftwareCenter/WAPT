@@ -58,30 +58,6 @@ namespace WAPT {
             return splitted[splitted.Length - 1];
         }
 
-        /* Installs a package. */
-        public static bool install(Package package) {
-            string name = Utils.GetNameByURL(package.Path);
-            if(Utils.Download(package.Path, name)) {
-                try {
-                    Process.Start(name);
-                }
-                catch(Exception) {
-                    return false;
-                }
-                finally {
-                    Utils.cleanWizard(name);
-                }
-                return true;
-            }
-            else
-                return false;
-        }
-
-        /* Upgrades a package (=install asd). */
-        public static bool upgrade(Package package) {
-            return Utils.install(package);
-        }
-
         /* Removes a package. */
         public static bool remove(Package package) {
             RegistryKey uninstall = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall", false);
@@ -97,20 +73,6 @@ namespace WAPT {
                     return true;
                 }
             return false;
-        }
-
-        public static bool cleanWizard(string path) {
-            if(File.Exists(path)) {
-                try {
-                    File.Delete(path);
-                }
-                catch(Exception) {
-                    return false;
-                }
-                return true;
-            }
-            else
-                return false;
         }
     }
 }
